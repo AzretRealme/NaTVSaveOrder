@@ -1,0 +1,21 @@
+package NaTV.Main.models.entity;
+
+import jdk.jfr.Enabled;
+import lombok.Data;
+
+import javax.persistence.*;
+import java.util.Date;
+
+@Data
+@Enabled
+@Table(name = "orderDays")
+public class OrderDay {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private Date day;
+    @ManyToOne
+    @JoinColumn(name = "id_order_detail")
+    private OrderDetail orderDetail;
+
+}
