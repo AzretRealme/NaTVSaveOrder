@@ -18,20 +18,20 @@ public class ChannelController {
 //    public OutputChannel inputTvChannels(@RequestBody InputDiscountData inputDiscountData){
 //        return discountService.saveNewDiscountForChannel(inputDiscountData);
 //    }
-@PutMapping("/save-discount")
-public Channel saveTvChannels(@RequestBody Channel channel){
+    @PutMapping("/save-discount")
+    public Channel saveTvChannels(@RequestBody Channel channel){
     return channelService.saveTvChannel(channel);
 }
-
-    @GetMapping("/all-channels")
+//
+    @GetMapping("/all-outputChannels")
     public List<OutputChannel>outputTvChannels(){
         return channelService.outputTvChannels();
     }
 
-//    @GetMapping("/all-channels")
-//    public List<Channel> tvChannels(){
-//        return channelService.tvChannels();
-//    }
+    @GetMapping("/all-channels")
+    public List<Channel> tvChannels(){
+        return channelService.tvChannels();
+    }
 
 //
 //    @GetMapping("/all-outputChannels")

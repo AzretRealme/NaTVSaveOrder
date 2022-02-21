@@ -3,7 +3,6 @@ package NaTV.Main.services.impl;
 import NaTV.Main.dao.DiscountRepo;
 import NaTV.Main.mappers.DiscountMapper;
 import NaTV.Main.models.dto.DiscountDto;
-import NaTV.Main.models.entity.Channel;
 import NaTV.Main.models.entity.Discount;
 import NaTV.Main.services.DiscountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,8 @@ public class DiscountServiceImpl implements DiscountService {
 
     @Autowired
     private DiscountRepo discountRepo;
+    @Autowired
+    private DiscountMapper discountMapper;
 
     @Override
     public List<Discount> discountChannels() {
@@ -23,7 +24,7 @@ public class DiscountServiceImpl implements DiscountService {
 
     @Override
     public List<DiscountDto> allActiveChannelDiscounts(Long id) {
-        return DiscountMapper.INSTANCE.toDiscountDtos(discountRepo.allActiveChannelDiscounts(id));
+        return discountMapper.toDiscountDtos(discountRepo.allActiveChannelDiscounts(id));
 
     }
 

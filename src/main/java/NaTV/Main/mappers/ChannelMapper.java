@@ -13,9 +13,9 @@ public interface ChannelMapper {
 
     ChannelMapper INSTANCE = Mappers.getMapper(ChannelMapper.class);
 
-    Channel toChannel(ChannelDto tvChannelDto);
-    ChannelDto toChannelDto(Channel tvChannel);
+    Channel toChannel(ChannelDto channelDto);
+    ChannelDto toChannelDto(Channel channel);
 
-    List<Channel> toChannels(List<ChannelDto> tvChannelDtos);
-    List<ChannelDto>toChannelDtos(List<Channel> tvChannels);
+    List<Channel> toChannels(List<ChannelDto> channelDtos);
+    List<ChannelDto>toChannelDtos(List<Channel> channels);
 }

@@ -7,7 +7,6 @@ import NaTV.Main.dao.PriceRepo;
 import NaTV.Main.models.dto.DiscountDto;
 import NaTV.Main.models.dto.PriceDto;
 import NaTV.Main.models.entity.Channel;
-import NaTV.Main.models.entity.Price;
 import NaTV.Main.models.objects.OutputChannel;
 import NaTV.Main.models.objects.OutputDiscount;
 import NaTV.Main.services.ChannelService;
@@ -48,6 +47,7 @@ public class ChannelServiceImpl implements ChannelService {
         channel = channelRepo.save(channel);
         return channel;
     }
+    
 
     @Override
     public List<OutputChannel> outputTvChannels() {
@@ -55,7 +55,7 @@ public class ChannelServiceImpl implements ChannelService {
         List<PriceDto> activeChannelPriceFilterByActive = activeChannelPrice.stream()
                 .filter(x -> x.getChannel().isActive())
                 .collect(Collectors.toList());
-        List<OutputChannel> outputTvChannels = new ArrayList<>();
+        List<OutputChannel> outputChannels = new ArrayList<>();
         for (PriceDto p : activeChannelPriceFilterByActive) {
             OutputChannel outputTvChannelData = new OutputChannel();
             outputTvChannelData.setId(p.getChannel().getId());
@@ -65,15 +65,15 @@ public class ChannelServiceImpl implements ChannelService {
             List<DiscountDto> activeChannelDiscounts = discountService.allActiveChannelDiscounts(p.getChannel().getId());
             List<OutputDiscount> discountDataList = new ArrayList<>();
             for (DiscountDto d : activeChannelDiscounts) {
-                OutputDiscount outputDiscountData = new OutputDiscount();
-                outputDiscountData.setPercent(d.getPercent());
-                outputDiscountData.setMinDay(d.getMinDay());
-                discountDataList.add(outputDiscountData);
+                OutputDiscount outputDiscount = new OutputDiscount();
+                outputDiscount.setPercent(d.getPercent());
+                outputDiscount.setMinDay(d.getMinDay());
+                discountDataList.add(outputDiscount);
             }
             outputTvChannelData.setDiscounts(discountDataList);
-            outputTvChannels.add(outputTvChannelData);
+            outputChannels.add(outputTvChannelData);
         }
-        return outputTvChannels;
+        return outputChannels;
     }
 
 

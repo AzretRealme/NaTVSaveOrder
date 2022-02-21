@@ -13,6 +13,8 @@ import java.util.List;
 public class PriceServiceImpl implements PriceService {
     @Autowired
     private PriceRepo priceRepo;
+    @Autowired
+    private PriceMapper priceMapper;
 
     @Override
     public Price savePrice(Price price) {
@@ -26,7 +28,8 @@ public class PriceServiceImpl implements PriceService {
 
     @Override
     public List<PriceDto> allActiveChannelsPrices() {
-        return PriceMapper.INSTANCE.toPriceDtos(priceRepo.allActiveChannelsPrices());
+//        return PriceMapper.INSTANCE.toPriceDtos(priceRepo.allActiveChannelsPrices());
+        return priceMapper.toPriceDtos(priceRepo.allActiveChannelsPrices());
 
     }
 
