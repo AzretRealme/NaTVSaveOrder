@@ -13,6 +13,9 @@ import NaTV.Main.services.ChannelService;
 import NaTV.Main.services.DiscountService;
 import NaTV.Main.services.PriceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -50,7 +53,7 @@ public class ChannelServiceImpl implements ChannelService {
     
 
     @Override
-    public List<OutputChannel> outputTvChannels() {
+    public List<OutputChannel> outputTvChannels(int pageLimit) {
         List<PriceDto> activeChannelPrice = priceService.allActiveChannelsPrices();
         List<PriceDto> activeChannelPriceFilterByActive = activeChannelPrice.stream()
                 .filter(x -> x.getChannel().isActive())
@@ -73,7 +76,7 @@ public class ChannelServiceImpl implements ChannelService {
             outputTvChannelData.setDiscounts(discountDataList);
             outputChannels.add(outputTvChannelData);
         }
-        return outputChannels;
+        return outputChannels.stream().limit(pageLimit).collect(Collectors.toList());
     }
 
 

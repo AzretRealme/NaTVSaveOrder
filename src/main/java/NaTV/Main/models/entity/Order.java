@@ -6,8 +6,8 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity
 @Data
+@Entity
 @Table(name = "orders")
 public class Order {
     @Id
@@ -15,9 +15,8 @@ public class Order {
     private Long id;
     private String text;
     private String name;
-    private String phone;
     private String email;
-    private double totalPrice;
+    private double total_price;
     private Date addDate;
     private Date editDate;
     @Enumerated(EnumType.STRING)

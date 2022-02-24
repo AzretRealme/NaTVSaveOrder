@@ -23,6 +23,7 @@ public class DiscountController {
     public List<Discount> discountChannels(){
         return discountService.discountChannels();
     }
+
 //    @GetMapping("/all-channels")
 //    public List<Channel> tvChannels(){
 //        return channelService.tvChannels();

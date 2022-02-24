@@ -18,5 +18,4 @@ public class OrderDetail {
     @JoinColumn(name = "id_orders")
     private Order order;
     private double price;
-
 }

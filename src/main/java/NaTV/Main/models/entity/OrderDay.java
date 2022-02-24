@@ -1,15 +1,15 @@
 package NaTV.Main.models.entity;
 
-import jdk.jfr.Enabled;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Data
-@Enabled
+@Entity
 @Table(name = "orderDays")
 public class OrderDay {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,5 +17,4 @@ public class OrderDay {
     @ManyToOne
     @JoinColumn(name = "id_order_detail")
     private OrderDetail orderDetail;
-
 }
