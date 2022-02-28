@@ -8,10 +8,11 @@ import NaTV.Main.models.dto.OrderDetailDto;
 import NaTV.Main.models.dto.OrderDto;
 import NaTV.Main.models.entity.OrderDetail;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Service
 public class OrderDetailMapperImpl implements OrderDetailMapper {
     @Autowired
     private ChannelMapper channelMapper;

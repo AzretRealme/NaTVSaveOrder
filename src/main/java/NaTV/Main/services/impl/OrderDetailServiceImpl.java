@@ -1,18 +1,40 @@
 package NaTV.Main.services.impl;
 
 import NaTV.Main.dao.OrderDetailRepo;
+import NaTV.Main.mappers.OrderDetailMapper;
+import NaTV.Main.mappers.OrderMapper;
 import NaTV.Main.models.dto.OrderDetailDto;
+import NaTV.Main.models.dto.OrderDto;
 import NaTV.Main.models.entity.OrderDetail;
 import NaTV.Main.services.OrderDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@Service
 public class OrderDetailServiceImpl implements OrderDetailService {
     @Autowired
     private OrderDetailRepo orderDetailRepo;
+    @Autowired
+    private OrderDetailMapper orderDetailMapper;
+    @Autowired
+    private OrderMapper orderMapper;
 
     @Override
-    public OrderDetail save(OrderDetail orderDetail) {
-        orderDetail = orderDetailRepo.save(orderDetail);
-        return orderDetail;
+    public OrderDetailDto save(OrderDetail orderDetail) {
+        return orderDetailMapper.toOrderDetailDto(orderDetailRepo.save(orderDetail));
     }
+
+    @Override
+    public List<OrderDetailDto> findAllByOrder(OrderDto orderDto) {
+        List<OrderDetail> orderDetail = orderDetailRepo.findAllByOrder(orderMapper.toOrder(orderDto));
+        return orderDetailMapper.toOrderDetailDtos(orderDetail);
+    }
+
+    @Override
+    public List<OrderDetailDto> findByOrderId(Long id) {
+        return orderDetailMapper.toOrderDetailDtos(orderDetailRepo.findByOrderId(id));
+    }
+
 }

@@ -12,13 +12,13 @@ import java.util.stream.Collectors;
 @Service
 public class ChannelMapperImpl implements ChannelMapper {
     @Override
-    public Channel toChannel(ChannelDto tvChannelDto) {
+    public Channel toChannel(ChannelDto channelDto) {
         Channel channel = new Channel();
-        channel.setId(tvChannelDto.getId());
-        channel.setChannelName(tvChannelDto.getChannelName());
-        channel.setActive(tvChannelDto.isActive());
-        channel.setPhoto(tvChannelDto.getPhoto());
-        channel.setOrderNum(tvChannelDto.getOrderNum());
+        channel.setId(channelDto.getId());
+        channel.setChannelName(channelDto.getChannelName());
+        channel.setActive(channelDto.isActive());
+        channel.setPhoto(channelDto.getPhoto());
+        channel.setOrderNum(channelDto.getOrderNum());
         return channel;
     }
 

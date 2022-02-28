@@ -1,5 +1,6 @@
 package NaTV.Main.controllers;
 
+import NaTV.Main.models.dto.PriceDto;
 import NaTV.Main.models.entity.Channel;
 import NaTV.Main.models.entity.Price;
 import NaTV.Main.services.PriceService;
@@ -14,8 +15,8 @@ public class PriceController {
     @Autowired
     private PriceService priceService;
 
-    @PutMapping("/save-price")
-    public Price savePrice(@RequestBody Price price){
+    @PostMapping("/save-price")
+    public PriceDto savePrice(@RequestBody Price price){
         return priceService.savePrice(price);
     }
     @GetMapping("/all-prices")

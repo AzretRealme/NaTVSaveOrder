@@ -1,7 +1,7 @@
 package NaTV.Main.enums;
 
 public enum OrderStatus {
-    NEW,
-    PROCESS,
-    COMPLETED
+    ACTIVE,
+    NOT_ACTIVE
+
 }

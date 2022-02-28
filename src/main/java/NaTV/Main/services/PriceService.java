@@ -9,6 +9,8 @@ public interface PriceService{
     List<Price> priceChannels();
     List<PriceDto> allActiveChannelsPrices();
 
-    Price savePrice(Price price);
+    PriceDto savePrice(Price price);
+    PriceDto findByChannelAndDate(Long id);
+
 
 }

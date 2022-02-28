@@ -8,11 +8,12 @@ import NaTV.Main.models.dto.OrderDto;
 import NaTV.Main.models.entity.Order;
 import NaTV.Main.models.entity.OrderDay;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Service
 public class OrderDayMapperImpl implements OrderDayMapper {
     @Autowired
     private OrderDetailMapper orderDetailMapper;

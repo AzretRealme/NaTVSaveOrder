@@ -1,5 +1,6 @@
 package NaTV.Main.controllers;
 
+import NaTV.Main.models.dto.DiscountDto;
 import NaTV.Main.models.entity.Channel;
 import NaTV.Main.models.entity.Discount;
 import NaTV.Main.services.DiscountService;
@@ -15,8 +16,8 @@ public class DiscountController {
     @Autowired
     private DiscountService discountService;
 
-    @PutMapping("/save-discount")
-    public Discount saveTvChannels(@RequestBody Discount discount){
+    @PostMapping("/save-discount")
+    public DiscountDto saveTvChannels(@RequestBody Discount discount){
         return discountService.saveDiscount(discount);
     }
     @GetMapping("/all-discounts")
@@ -24,9 +25,5 @@ public class DiscountController {
         return discountService.discountChannels();
     }
 
-//    @GetMapping("/all-channels")
-//    public List<Channel> tvChannels(){
-//        return channelService.tvChannels();
-//    }
 
 }

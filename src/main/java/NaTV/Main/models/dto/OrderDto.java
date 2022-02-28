@@ -10,9 +10,8 @@ public class OrderDto {
     private Long id;
     private String text;
     private String name;
-    private String phone;
     private String email;
-    private double totalPrice;
+    private double total_Price;
     private Date addDate;
     private Date editDate;
     private OrderStatus orderStatus;

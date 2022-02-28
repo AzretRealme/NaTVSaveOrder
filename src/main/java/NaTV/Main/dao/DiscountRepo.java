@@ -12,4 +12,9 @@ public interface DiscountRepo extends JpaRepository<Discount, Long> {
     @Query(value = "SELECT * FROM discounts ds WHERE ds.id_channels = ?1 AND CURRENT_TIMESTAMP BETWEEN start_date AND end_date order by min_day asc", nativeQuery = true)
     List<Discount> allActiveChannelDiscounts(Long id);
 
+    @Query(value = "select * from discounts d where d.min_day = (select MAX(min_day) from discounts d where d.min_day <= ?1) and current_timestamp between start_date and end_date and d.id_channels = ?2", nativeQuery = true)
+    Discount findByMinDay(int days, Long id);
+
+
+
 }

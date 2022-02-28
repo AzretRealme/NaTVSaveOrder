@@ -1,4 +1,4 @@
-package NaTV.Main.models.objects;
+package NaTV.Main.models.objects.outputs;
 
 
 import lombok.Data;
