@@ -6,6 +6,7 @@ import NaTV.Main.enums.OrderStatus;
 import NaTV.Main.mappers.OrderDetailMapper;
 import NaTV.Main.mappers.OrderMapper;
 import NaTV.Main.models.dto.*;
+import NaTV.Main.models.entity.Channel;
 import NaTV.Main.models.entity.Order;
 import NaTV.Main.models.objects.objectOrders.ChannelOrder;
 import NaTV.Main.models.objects.objectOrders.ChannelOrderResponse;
@@ -43,6 +44,7 @@ public class OrderServiceImpl implements OrderService {
     private OrderService orderService;
 
 
+
     @Override
     public FinalResponse saveOrder(OrderData orderData) {
 
@@ -59,103 +61,76 @@ public class OrderServiceImpl implements OrderService {
         order.setEditDate(new Date());
         //паттерн, который убирает пробелы
         String textLength = order.getText().replaceAll("\\s+", "");
-
         OrderDto orderDto1 = orderMapper.toOrderDto(orderRepo.save(order));
 
         double totalSum;
-
         List<ChannelOrder> channelOrders = orderData.getChannels();
         for (ChannelOrder c : channelOrders) {
             OrderDetailDto orderDetailDto = new OrderDetailDto();
             orderDetailDto.setOrder(orderDto1);
-
-            //находим каналы по Id (findChannelByIdForDiscount)
             orderDetailDto.setChannel(channelService.findChannelByIdForDiscount(c.getChannelId()));
-
             //get size
             int days = c.getDays().size();
-
             //находим minDay с помощью метода findByMinDay
             DiscountDto discountDto = discountService.findByMinDay(days, c.getChannelId());
-
             //find priceDto id
             PriceDto priceDto = priceService.findByChannelAndDate(c.getChannelId());
-
             double pricePerSymbol = priceDto.getPrice();
-
-            //длина текста
-            int sizeAdText = textLength.length();
-
+            int sizeAdText = textLength.length();//длина текста
             OrderDetailDto orderDetailDto1;
-
-
             if (discountDto != null) {
                 double percent = discountDto.getPercent();
                 double withoutDiscount = pricePerSymbol * sizeAdText;
                 double discountInSum = withoutDiscount * percent / 100;
                 double sumForChannel = (withoutDiscount - discountInSum) * days;
-                //выводим цену на каждый канал
-                orderDetailDto.setPrice(sumForChannel);
-                orderDetailDto1 = orderDetailService.save(orderDetailMapper.toOrderDetail(orderDetailDto));
+                finalResponse.setPrice(pricePerSymbol);
+                finalResponse.setTotal_sum(sumForChannel);
+//                orderDetailDto.setPrice(sumForChannel);
+//                orderDetailDto1 = orderDetailService.save(orderDetailMapper.toOrderDetail(orderDetailDto));
             } else {
                 double withoutDiscount = (pricePerSymbol * sizeAdText) * days;
-                //выводим цену на каждый канал
-                orderDetailDto.setPrice(withoutDiscount);
-                orderDetailDto1 = orderDetailService.save(orderDetailMapper.toOrderDetail(orderDetailDto));
+                finalResponse.setPrice(pricePerSymbol);
+                finalResponse.setTotal_sum(withoutDiscount);
+
             }
-
-            //выводим дату и сохраняем
-            List<Date> dates = c.getDays();
-            dates.forEach(x -> {
-                orderDayService.saveOrderDay(x, orderDetailDto1);
-            });
-
-        }
-
-         List<OrderDetailDto> orderDetailDtos = orderDetailService.findAllByOrder(orderDto1);
-
-            //выводим общую сумму всех каналов
-            totalSum = orderDetailDtos.stream()
-                    .mapToDouble(x -> x.getPrice())
-                    .sum();
-            //сохраняем общую сумму в Entity
-            orderDto1.setTotal_Price(totalSum);
-            Order order1 = orderRepo.save(orderMapper.toOrder(orderDto1));
-            //сохраняем общую сумму в finalResponse
-        finalResponse.setTotalSum(totalSum);
-
-            //ищем orderDetailDto по Id с помощью метода findByOrderId
-            List<OrderDetailDto> orderDetailDtoList = orderDetailService.findByOrderId(order1.getId());
-            List<ChannelOrderResponse> channelOrderResponseList = new ArrayList<>();
-            for (OrderDetailDto o : orderDetailDtoList) {
-                ChannelOrderResponse channelOrderResponse = new ChannelOrderResponse();
-
-                //получаем price на каждый канал
-                channelOrderResponse.setCostPerChannel(o.getPrice());
-
-                //ищем канал по Id
-                ChannelDto channelDto = channelService.findChannelByIdForDiscount(o.getChannel().getId());
-                channelOrderResponse.setChannelName(channelDto.getChannelName());
-
-                //ищем orderDayDto по Id
-                List<OrderDayDto> orderDayDtos = orderDayService.findByOrderDetailId(o.getId());
-                List<Date> dates1 = new ArrayList<>();
-                for (OrderDayDto od : orderDayDtos) {
-                    Date date;
-                    date = od.getDay();
-                    dates1.add(date);
-                }
-                channelOrderResponse.setDates(dates1);
-                channelOrderResponseList.add(channelOrderResponse);
-            }
-            finalResponse.setChannelOrders(channelOrderResponseList);
-            finalResponse.setOrderStatus(OrderStatus.ACTIVE);
+            finalResponse.setChannelDtos(channelService.findChannelByIdForDiscount(c.getChannelId()));
             finalResponse.setMessage("Успешно сохранено");
             finalResponse.setAdText("Есть что посмотреть");
-
-        return finalResponse;
+//            List<Date> dates = c.getDays(); //выводим дату и сохраняем
+//            dates.forEach(x -> {
+//                orderDayService.saveOrderDay(x, orderDetailDto1);
+//            });
+//            List<OrderDetailDto> orderDetailDtos = orderDetailService.findAllByOrder(orderDto1);
+//            totalSum = orderDetailDtos.stream()   //выводим общую сумму всех каналов
+//                    .mapToDouble(x -> x.getPrice())
+//                    .sum();
+//            orderDto1.setTotal_Price(totalSum); //сохраняем общую сумму в Entity
+//            Order order1 = orderRepo.save(orderMapper.toOrder(orderDto1));
+//            finalResponse.setTotal_sum(totalSum); //сохраняем общую сумму в finalResponse
+//            //ищем order по Id с помощью метода findByOrderId
+//            List<OrderDetailDto> orderDetailDtoList = orderDetailService.findByOrderId(order1.getId());
+//            List<ChannelOrderResponse> channelOrderResponseList = new ArrayList<>();
+//            for (OrderDetailDto o : orderDetailDtoList) {
+//                ChannelOrderResponse channelOrderResponse = new ChannelOrderResponse();
+//                channelOrderResponse.setCostPerChannel(o.getPrice());
+//                ChannelDto channelDto = channelService.findChannelByIdForDiscount(o.getChannel().getId());
+//                channelOrderResponse.setChannelName(channelDto.getChannelName());
+//                List<OrderDayDto> orderDayDtos = orderDayService.findByOrderDetailId(o.getId());
+//                List<Date> dates1 = new ArrayList<>();
+//                for (OrderDayDto od : orderDayDtos) {
+//                    Date date;
+//                    date = od.getDay();
+//                    dates1.add(date);
+//                }
+//                channelOrderResponse.setDates(dates1);
+//                channelOrderResponseList.add(channelOrderResponse);
+//            }
 
         }
+        return finalResponse;
+
+    }
+
 
     @Override
     public List<Order> getOrder() {

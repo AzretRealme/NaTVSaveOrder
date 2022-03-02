@@ -1,6 +1,7 @@
 package NaTV.Main.services.impl;
 
 import NaTV.Main.dao.DiscountRepo;
+import NaTV.Main.mappers.ChannelMapper;
 import NaTV.Main.mappers.DiscountMapper;
 import NaTV.Main.models.dto.DiscountDto;
 import NaTV.Main.models.entity.Discount;
@@ -19,6 +20,9 @@ public class DiscountServiceImpl implements DiscountService {
     private DiscountMapper discountMapper;
     @Autowired
     private ChannelService channelService;
+
+    @Autowired
+    private ChannelMapper channelMapper;
 
     @Override
     public List<Discount> discountChannels() {

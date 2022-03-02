@@ -1,6 +1,7 @@
 package NaTV.Main.services.impl;
 
 import NaTV.Main.dao.OrderDetailRepo;
+import NaTV.Main.dao.OrderRepo;
 import NaTV.Main.mappers.OrderDetailMapper;
 import NaTV.Main.mappers.OrderMapper;
 import NaTV.Main.models.dto.OrderDetailDto;
@@ -20,6 +21,8 @@ public class OrderDetailServiceImpl implements OrderDetailService {
     private OrderDetailMapper orderDetailMapper;
     @Autowired
     private OrderMapper orderMapper;
+    @Autowired
+    private OrderRepo orderRepo;
 
     @Override
     public OrderDetailDto save(OrderDetail orderDetail) {

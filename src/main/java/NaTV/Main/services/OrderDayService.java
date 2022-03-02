@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface OrderDayService {
-    void saveOrderDay(Date date, OrderDetailDto orderDetailDto);
+    OrderDayDto saveOrderDay(Date date, OrderDetailDto orderDetailsDto);
     List<OrderDayDto> findByOrderDetailId(Long id);
 
 }

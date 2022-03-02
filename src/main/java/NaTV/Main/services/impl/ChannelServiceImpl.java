@@ -93,8 +93,9 @@ public class ChannelServiceImpl implements ChannelService {
 
     @Override
     public ChannelDto findChannelByIdForDiscount(Long id) {
-        return channelMapper.toChannelDto(channelRepo.findById(id)
-                .orElseThrow(()-> new ChannelNotFound("Канал по такому ID не найден!")));
+
+        return channelMapper.toChannelDto(channelRepo.findById(id).orElseThrow(()->
+                new ChannelNotFound("Канал по такому ID не найден!")));
     }
 
     private ChannelDto findLastRowFromDbForOrderNum(){

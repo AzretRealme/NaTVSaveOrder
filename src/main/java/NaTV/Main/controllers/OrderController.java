@@ -18,15 +18,11 @@ public class OrderController {
     @Autowired
     private OrderRepo orderRepo;
 
-//    @GetMapping("get-Order")
-//    public List<Order> getOrder(){
-//        return orderRepo.findAll();
-//    }
 
-//    @GetMapping("get-ActiveOrder")
-//    public List<Order> getOrder(){
-//        return orderRepo.allActiveOrders();
-//    }
+    @GetMapping("get-Order")
+    public List<Order> getOrder(){
+        return orderRepo.findAll();
+    }
 
     @PostMapping("save-OrderData")
     public FinalResponse save(@RequestBody OrderData orderData){

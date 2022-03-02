@@ -11,4 +11,5 @@ public class ChannelOrderResponse {
     private double costPerChannel;
     @JsonFormat(shape = JsonFormat.Shape.ARRAY, pattern="dd-MM-yyyy")
     private List<Date> dates;
+
 }

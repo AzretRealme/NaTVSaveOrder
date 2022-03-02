@@ -1,5 +1,6 @@
 package NaTV.Main.models.objects.objectOrders;
 
+import NaTV.Main.models.dto.ChannelDto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
@@ -11,5 +12,7 @@ public class ChannelOrder {
     private Long channelId;
     @JsonFormat(shape = JsonFormat.Shape.ARRAY, pattern="dd-MM-yyyy")
     private List<Date> days;
+
+
 
 }

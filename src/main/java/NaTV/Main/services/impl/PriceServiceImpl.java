@@ -1,8 +1,10 @@
 package NaTV.Main.services.impl;
 
 import NaTV.Main.dao.PriceRepo;
+import NaTV.Main.mappers.ChannelMapper;
 import NaTV.Main.mappers.PriceMapper;
 import NaTV.Main.models.dto.PriceDto;
+import NaTV.Main.models.entity.Discount;
 import NaTV.Main.models.entity.Price;
 import NaTV.Main.services.ChannelService;
 import NaTV.Main.services.PriceService;
@@ -20,6 +22,8 @@ public class PriceServiceImpl implements PriceService {
     private PriceService priceService;
     @Autowired
     private ChannelService channelService;
+    @Autowired
+    private ChannelMapper channelMapper;
 
     @Override
     public PriceDto savePrice(Price price) {
@@ -33,7 +37,14 @@ public class PriceServiceImpl implements PriceService {
 
     @Override
     public PriceDto findByChannelAndDate(Long id) {
-        return priceMapper.toPriceDto(priceRepo.findByChannelAndDate(id));
+
+        Price price = priceRepo.findByChannelAndDate(id);
+        if (price != null){
+            return priceMapper.toPriceDto(price);
+        }else {
+            return null;
+        }
+//        return priceMapper.toPriceDto(priceRepo.findByChannelAndDate(id));
     }
 
     @Override

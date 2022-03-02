@@ -4,6 +4,7 @@ import NaTV.Main.dao.OrderDayRepo;
 import NaTV.Main.mappers.OrderDayMapper;
 import NaTV.Main.models.dto.OrderDayDto;
 import NaTV.Main.models.dto.OrderDetailDto;
+import NaTV.Main.models.entity.Channel;
 import NaTV.Main.models.entity.OrderDay;
 import NaTV.Main.models.entity.OrderDetail;
 import NaTV.Main.services.OrderDayService;
@@ -21,11 +22,12 @@ public class OrderDayServiceImpl implements OrderDayService {
     private OrderDayMapper orderDayMapper;
 
     @Override
-    public void saveOrderDay(Date date, OrderDetailDto orderDetailDto) {
+    public OrderDayDto saveOrderDay(Date date, OrderDetailDto orderDetailDto) {
         OrderDayDto orderDayDto = new OrderDayDto();
         orderDayDto.setDay(date);
         orderDayDto.setOrderDetail(orderDetailDto);
-        orderDayRepo.save(orderDayMapper.toOrderDay(orderDayDto));
+        OrderDay orderDay = orderDayRepo.save(orderDayMapper.toOrderDay(orderDayDto));
+        return orderDayMapper.toOrderDayDto(orderDay);
     }
 
     @Override
