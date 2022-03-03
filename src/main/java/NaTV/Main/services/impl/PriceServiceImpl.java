@@ -1,29 +1,30 @@
 package NaTV.Main.services.impl;
 
 import NaTV.Main.dao.PriceRepo;
-import NaTV.Main.mappers.ChannelMapper;
 import NaTV.Main.mappers.PriceMapper;
 import NaTV.Main.models.dto.PriceDto;
-import NaTV.Main.models.entity.Discount;
 import NaTV.Main.models.entity.Price;
 import NaTV.Main.services.ChannelService;
 import NaTV.Main.services.PriceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 public class PriceServiceImpl implements PriceService {
-    @Autowired
+
     private PriceRepo priceRepo;
-    @Autowired
     private PriceMapper priceMapper;
-    @Autowired
-    private PriceService priceService;
-    @Autowired
     private ChannelService channelService;
+
     @Autowired
-    private ChannelMapper channelMapper;
+    @Lazy
+    public PriceServiceImpl(PriceRepo priceRepo, PriceMapper priceMapper, ChannelService channelService) {
+        this.priceRepo = priceRepo;
+        this.priceMapper = priceMapper;
+        this.channelService = channelService;
+    }
 
     @Override
     public PriceDto savePrice(Price price) {

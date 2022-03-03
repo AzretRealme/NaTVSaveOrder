@@ -2,8 +2,6 @@ package NaTV.Main.services.impl;
 
 
 import NaTV.Main.dao.ChannelRepo;
-import NaTV.Main.dao.DiscountRepo;
-import NaTV.Main.dao.PriceRepo;
 import NaTV.Main.exceptions.ChannelNotFound;
 import NaTV.Main.mappers.ChannelMapper;
 import NaTV.Main.models.dto.ChannelDto;
@@ -25,21 +23,18 @@ import java.util.stream.Collectors;
 @Service
 public class ChannelServiceImpl implements ChannelService {
 
-    @Autowired
-    private DiscountRepo discountRepo;
-    @Autowired
     private PriceService priceService;
-    @Autowired
     private DiscountService discountService;
-    @Autowired
     private ChannelRepo channelRepo;
-    @Autowired
-    private ChannelService channelService;
-    @Autowired
-    private PriceRepo priceRepo;
-    @Autowired
     private ChannelMapper channelMapper;
 
+    @Autowired
+    public ChannelServiceImpl(PriceService priceService, DiscountService discountService, ChannelRepo channelRepo, ChannelMapper channelMapper) {
+        this.priceService = priceService;
+        this.discountService = discountService;
+        this.channelRepo = channelRepo;
+        this.channelMapper = channelMapper;
+    }
 
     @Override
     public List<Channel> tvChannels() {

@@ -1,17 +1,22 @@
 package NaTV.Main.services.impl;
 
-import NaTV.Main.dao.OrderDetailRepo;
 import NaTV.Main.dao.OrderRepo;
 import NaTV.Main.enums.OrderStatus;
-import NaTV.Main.mappers.OrderDetailMapper;
 import NaTV.Main.mappers.OrderMapper;
-import NaTV.Main.models.dto.*;
+import NaTV.Main.models.dto.DiscountDto;
+import NaTV.Main.models.dto.OrderDetailDto;
+import NaTV.Main.models.dto.OrderDto;
+import NaTV.Main.models.dto.PriceDto;
 import NaTV.Main.models.entity.Order;
 import NaTV.Main.models.objects.objectOrders.ChannelOrder;
 import NaTV.Main.models.objects.objectOrders.FinalResponse;
 import NaTV.Main.models.objects.objectOrders.OrderData;
-import NaTV.Main.services.*;
+import NaTV.Main.services.ChannelService;
+import NaTV.Main.services.DiscountService;
+import NaTV.Main.services.OrderService;
+import NaTV.Main.services.PriceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -19,26 +24,22 @@ import java.util.List;
 
 @Service
 public class OrderServiceImpl implements OrderService {
-    @Autowired
+
     private OrderRepo orderRepo;
-    @Autowired
     private OrderMapper orderMapper;
-    @Autowired
     private PriceService priceService;
-    @Autowired
     private DiscountService discountService;
-    @Autowired
     private ChannelService channelService;
+
     @Autowired
-    private OrderDetailService orderDetailService;
-    @Autowired
-    private OrderDetailMapper orderDetailMapper;
-    @Autowired
-    private OrderDetailRepo orderDetailRepo;
-    @Autowired
-    private OrderDayService orderDayService;
-    @Autowired
-    private OrderService orderService;
+    @Lazy
+    public OrderServiceImpl( OrderRepo orderRepo, OrderMapper orderMapper, PriceService priceService, DiscountService discountService, ChannelService channelService) {
+        this.orderRepo = orderRepo;
+        this.orderMapper = orderMapper;
+        this.priceService = priceService;
+        this.discountService = discountService;
+        this.channelService = channelService;
+    }
 
     @Override
     public FinalResponse saveOrder(OrderData orderData) {
