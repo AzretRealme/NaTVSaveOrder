@@ -10,6 +10,5 @@ import java.util.List;
 
 public interface OrderDayService {
     OrderDayDto saveOrderDay(Date date, OrderDetailDto orderDetailsDto);
-    List<OrderDayDto> findByOrderDetailId(Long id);
 
 }

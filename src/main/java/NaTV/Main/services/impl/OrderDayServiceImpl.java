@@ -29,9 +29,4 @@ public class OrderDayServiceImpl implements OrderDayService {
         OrderDay orderDay = orderDayRepo.save(orderDayMapper.toOrderDay(orderDayDto));
         return orderDayMapper.toOrderDayDto(orderDay);
     }
-
-    @Override
-    public List<OrderDayDto> findByOrderDetailId(Long id) {
-        return orderDayMapper.toOrderDayDtos(orderDayRepo.findByOrderDetailId(id));
-    }
 }

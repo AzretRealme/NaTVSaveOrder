@@ -29,15 +29,4 @@ public class OrderDetailServiceImpl implements OrderDetailService {
         return orderDetailMapper.toOrderDetailDto(orderDetailRepo.save(orderDetail));
     }
 
-    @Override
-    public List<OrderDetailDto> findAllByOrder(OrderDto orderDto) {
-        List<OrderDetail> orderDetail = orderDetailRepo.findAllByOrder(orderMapper.toOrder(orderDto));
-        return orderDetailMapper.toOrderDetailDtos(orderDetail);
-    }
-
-    @Override
-    public List<OrderDetailDto> findByOrderId(Long id) {
-        return orderDetailMapper.toOrderDetailDtos(orderDetailRepo.findByOrderId(id));
-    }
-
 }
