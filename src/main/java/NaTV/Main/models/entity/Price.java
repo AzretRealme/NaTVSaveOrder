@@ -5,8 +5,10 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.Date;
 
-@Data
-@Entity
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor@Entity
 @Table(name = "prices")
 public class Price {
     @Id
