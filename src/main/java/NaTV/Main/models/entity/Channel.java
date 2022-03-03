@@ -3,7 +3,10 @@ package NaTV.Main.models.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
 @Data
 @Entity
 @Table(name = "channels")
