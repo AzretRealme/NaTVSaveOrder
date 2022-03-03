@@ -25,6 +25,7 @@ public class OrderController {
 
     @GetMapping("get-Order")
     public List<Order> getOrder() {
+
         return orderRepo.findAll();
     }
 
@@ -44,4 +45,3 @@ public class OrderController {
         }
     }
 }
-
