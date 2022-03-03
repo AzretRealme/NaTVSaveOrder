@@ -7,7 +7,6 @@ import javax.persistence.*;
 @Setter
 @ToString
 @NoArgsConstructor
-@Data
 @Entity
 @Table(name = "channels")
 public class Channel {
