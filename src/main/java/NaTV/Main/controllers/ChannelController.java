@@ -44,8 +44,19 @@ public class ChannelController {
     }
 
     @GetMapping("/all-outputChannels")
-    public List<OutputChannel>outputTvChannels(@RequestParam int pageLimit){
-        return channelService.outputTvChannels(pageLimit);
+    public ResponseEntity<?> outputTvChannels(@RequestParam int pageLimit){
+        try{
+            log.info("Get-Channels");
+            return ResponseEntity.status(HttpStatus.CREATED).body(channelService.outputTvChannels(pageLimit));
+        }catch (ChannelNotFound exception){
+            log.error(exception.getMessage());
+            exception.printStackTrace();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
+        }catch (Exception exception){
+            log.error(exception.getMessage());
+            exception.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getMessage());
+        }
     }
 
     @GetMapping("/all-channels")
