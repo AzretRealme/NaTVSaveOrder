@@ -32,7 +32,6 @@ public class OrderServiceImpl implements OrderService {
     private ChannelService channelService;
 
     @Autowired
-    @Lazy
     public OrderServiceImpl( OrderRepo orderRepo, OrderMapper orderMapper, PriceService priceService, DiscountService discountService, ChannelService channelService) {
         this.orderRepo = orderRepo;
         this.orderMapper = orderMapper;
