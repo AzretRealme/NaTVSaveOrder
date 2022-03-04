@@ -16,7 +16,6 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 
 
     @Autowired
-    @Lazy
     public OrderDetailServiceImpl( OrderDetailRepo orderDetailRepo, OrderDetailMapper orderDetailMapper) {
         this.orderDetailRepo = orderDetailRepo;
         this.orderDetailMapper = orderDetailMapper;
