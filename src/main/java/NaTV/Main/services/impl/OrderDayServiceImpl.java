@@ -18,7 +18,6 @@ public class OrderDayServiceImpl implements OrderDayService {
     private OrderDayMapper orderDayMapper;
 
     @Autowired
-    @Lazy
     public OrderDayServiceImpl( OrderDayRepo orderDayRepo, OrderDayMapper orderDayMapper) {
         this.orderDayRepo = orderDayRepo;
         this.orderDayMapper = orderDayMapper;
